@@ -44,9 +44,11 @@ pipeline {
       }
     }
     stage('Acceptance Tests') {
+      agent {
+        docker 'sharelatex:acceptance-test-runner'
+      }
       steps {
-        echo "TODO - Run Acceptance Tests"
-        //sh 'docker run -v "$(pwd):/app" --rm sl-acceptance-test-runner'
+        sh 'test/acceptance/scripts/full-test.sh'
       }
     }
     stage('Package') {
