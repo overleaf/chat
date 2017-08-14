@@ -8,12 +8,6 @@ pipeline {
   }
 
   stages {
-    stage('Set up') {
-      steps {
-        
-        sh 'git config --global core.logallrefupdates false'
-      }
-    }
     stage('Install') {
       agent {
         docker {
