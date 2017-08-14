@@ -44,10 +44,12 @@ pipeline {
       }
     }
     stage('Acceptance Tests') {
+      agent {
+        docker 'sharelatex/acceptance-test-runner'
+        reuseNode true
+      }
       steps {
-        withDockerContainer('sharelatex/acceptance-test-runner') {
-            sh 'test/acceptance/scripts/full-test.sh'
-        }
+        sh 'test/acceptance/scripts/full-test.sh'
       }
     }
     stage('Package') {
