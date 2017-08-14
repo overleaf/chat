@@ -3,7 +3,7 @@ pipeline {
   agent {
     docker {
       image 'node:4.2.1'
-      args "-v /var/lib/jenkins/.npm:/tmp/.npm"
+      args "-v /var/lib/jenkins/.npm:/tmp/.npm -v /var/run/docker.sock:/var/run/docker.sock -v /usr/bin/docker:/usr/bin/docker"
     }
   }
 
