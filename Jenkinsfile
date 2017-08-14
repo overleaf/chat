@@ -40,6 +40,7 @@ pipeline {
     }
     stage('Acceptance Tests') {
       steps {
+        sh 'docker pull sharelatex/acceptance-test-runner'
         sh 'docker run --rm -v $(pwd):/app sharelatex/acceptance-test-runner'
       }
     }
