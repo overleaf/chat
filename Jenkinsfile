@@ -45,14 +45,8 @@ pipeline {
       }
     }
     stage('Acceptance Tests') {
-      agent {
-        docker {
-          image 'sharelatex/acceptance-test-runner'
-          reuseNode true
-        }
-      }
       steps {
-        sh 'test/acceptance/scripts/full-test.sh'
+        sh 'docker run --rm -v $(pwd):/app sharelatex/acceptance-test-runner'
       }
     }
     stage('Package') {
