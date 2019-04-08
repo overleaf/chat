@@ -19,7 +19,7 @@
     "async": "0.2.9",
     "express": "3.3.1",
     "logger-sharelatex": "^1.6.0",
-    "metrics-sharelatex": "git+https://github.com/sharelatex/metrics-sharelatex.git#7c7ccad9b0c29856b083774a2496a81eab0115c7",
+    "metrics-sharelatex": "git+https://github.com/sharelatex/metrics-sharelatex.git#8cea7fe4d10ca4b0a1a3621ea88de65a0a268cf8",
     "mongojs": "2.4.0",
     "redis": "~0.10.1",
     "request": "^2.79.0",
