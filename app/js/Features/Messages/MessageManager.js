@@ -31,6 +31,7 @@ module.exports = MessageManager = {
       user_id,
       timestamp
     }
+    metrics.inc "chat_messages", 1, {room: room_id, user: user_id}
     newMessageOpts = this._ensureIdsAreObjectIds(newMessageOpts)
     return db.messages.save(newMessageOpts, callback)
   },
