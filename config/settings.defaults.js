@@ -11,8 +11,7 @@ module.exports = {
       url: `http://${process.env['WEB_HOST'] || 'localhost'}:${process.env[
         'WEB_PORT'
       ] || 3000}`,
-      user: 'sharelatex',
-      pass: 'password'
+      credentails: JSON.parse(process.env['WEB_CREDENTAILS']),
     }
   },
 
