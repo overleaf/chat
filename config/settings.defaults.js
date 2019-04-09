@@ -11,7 +11,7 @@ module.exports = {
       url: `http://${process.env['WEB_HOST'] || 'localhost'}:${process.env[
         'WEB_PORT'
       ] || 3000}`,
-      credentials: JSON.parse(process.env['WEB_CREDENTAILS'])
+      credentials: JSON.parse(process.env['WEB_CREDENTIALS'])
     }
   },
 
