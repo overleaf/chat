@@ -27,7 +27,7 @@ test_unit:
 test_acceptance: test_clean test_acceptance_pre_run test_acceptance_run
 
 test_acceptance_run:
-	echo "chat has no acceptance tests"
+	@[ ! -d test/acceptance ] && echo "chat has no acceptance tests" || $(DOCKER_COMPOSE) run --rm test_acceptance
 
 test_clean:
 	$(DOCKER_COMPOSE) down -v -t 0
