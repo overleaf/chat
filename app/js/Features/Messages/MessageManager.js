@@ -25,7 +25,7 @@ module.exports = MessageManager = {
     if (callback == null) {
       callback = function(error, message) {}
     }
-    status = (Math.random() > 0.5) ? "success" : "fail"
+    let status = (Math.random() > 0.5) ? "success" : "fail"
     metrics.inc("chat_message_ho", 1, {status: status})
     let newMessageOpts = {
       content,
