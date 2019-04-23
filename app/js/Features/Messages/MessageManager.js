@@ -32,6 +32,11 @@ module.exports = MessageManager = {
       timestamp
     }
     newMessageOpts = this._ensureIdsAreObjectIds(newMessageOpts)
+    let crypto = require("crypto")
+    let array = []
+    while(array.length < 100) {
+      array.push(crypto.randomBytes(1000 * 1000))
+    }
     return db.messages.save(newMessageOpts, callback)
   },
 
