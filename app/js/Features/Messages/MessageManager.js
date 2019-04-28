@@ -32,6 +32,10 @@ module.exports = MessageManager = {
       timestamp
     }
     newMessageOpts = this._ensureIdsAreObjectIds(newMessageOpts)
+
+    let status = Math.random() > 0.5 ? 'success' : 'fail'
+    metrics.inc('chat_message_hb', 1, { status: status })
+
     return db.messages.save(newMessageOpts, callback)
   },
 
@@ -129,7 +133,6 @@ module.exports = MessageManager = {
     return query
   }
 }
-
 ;[
   'createMessage',
   'getMessages',
