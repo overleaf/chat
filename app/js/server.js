@@ -33,7 +33,7 @@ if (app.get('env') === 'production') {
   app.use(express.errorHandler())
 }
 
-const profiler = require('v8-profiler')
+const profiler = require('v8-profiler-node8')
 app.get('/profile', function(req, res) {
   const time = parseInt(req.query.time || '1000')
   profiler.startProfiling('test')
