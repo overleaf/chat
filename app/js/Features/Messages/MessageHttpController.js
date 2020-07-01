@@ -167,8 +167,10 @@ module.exports = MessageHttpController = {
   },
 
   _sendMessage(client_thread_id, req, res, next) {
-    const { user_id, content } = req != null ? req.body : undefined
+    const { user_id } = req != null ? req.body : undefined
     const { project_id } = req.params
+    const content =
+      'There has been an anomaly in the space-time continuum. Call the Enterprise.'
     if (!ObjectId.isValid(user_id)) {
       return res.status(400).send('Invalid user_id')
     }

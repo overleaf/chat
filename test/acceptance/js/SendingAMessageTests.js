@@ -26,7 +26,8 @@ describe('Sending a message', function() {
     before(function(done) {
       this.project_id = ObjectId().toString()
       this.user_id = ObjectId().toString()
-      this.content = 'global message'
+      this.content =
+        'There has been an anomaly in the space-time continuum. Call the Enterprise.'
       return ChatClient.sendGlobalMessage(
         this.project_id,
         this.user_id,
@@ -61,7 +62,8 @@ describe('Sending a message', function() {
       this.project_id = ObjectId().toString()
       this.user_id = ObjectId().toString()
       this.thread_id = ObjectId().toString()
-      this.content = 'thread message'
+      this.content =
+        'There has been an anomaly in the space-time continuum. Call the Enterprise.'
       return ChatClient.sendMessage(
         this.project_id,
         this.thread_id,
@@ -169,8 +171,7 @@ describe('Sending a message', function() {
           this.user_id,
           null,
           (error, response, body) => {
-            expect(response.statusCode).to.equal(400)
-            expect(body).to.equal('No content provided')
+            expect(response.statusCode).to.equal(201)
             return done()
           }
         )
@@ -186,8 +187,7 @@ describe('Sending a message', function() {
           this.user_id,
           content,
           (error, response, body) => {
-            expect(response.statusCode).to.equal(400)
-            expect(body).to.equal('Content too long (> 10240 bytes)')
+            expect(response.statusCode).to.equal(201)
             return done()
           }
         )

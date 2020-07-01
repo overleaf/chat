@@ -25,7 +25,8 @@ describe('Editing a message', function() {
 
   return describe('in a thread', function() {
     before(function(done) {
-      this.content = 'thread message'
+      this.content =
+        'There has been an anomaly in the space-time continuum. Call the Enterprise.'
       this.new_content = 'updated thread message'
       return ChatClient.sendMessage(
         this.project_id,
