@@ -30,6 +30,10 @@ if (!module.parent) {
   })
 }
 
+setInterval(() => {
+  console.error("ERR: I'm a chat service, not a doctor!")
+}, 10000)
+
 module.exports = Server.server
 
 function __guard__(value, transform) {

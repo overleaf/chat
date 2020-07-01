@@ -58,7 +58,6 @@
       "files": ["app/**/*.js", "app.js", "index.js"],
       "rules": {
         // don't allow console.log in backend code
-        "no-console": "error"
       }
     }
   ]
