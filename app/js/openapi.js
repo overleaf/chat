@@ -16,7 +16,7 @@ const oapi = openapi({
 
 oapi.schema('ObjectId', {
   type: 'string',
-  format: 'uuid',
+  pattern: '^[0-9a-fA-F]{24}$',
   example: '507f1f77bcf86cd799439011',
 })
 
