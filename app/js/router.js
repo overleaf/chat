@@ -46,6 +46,31 @@ module.exports = Router = {
     app.get(
       '/project/:project_id/messages',
       openapi.path({
+        parameters: [
+          {
+            in: 'path',
+            name: 'project_id',
+            schema: {
+              type: 'string',
+              format: 'uuid',
+              example: '507f1f77bcf86cd799439011',
+            },
+            required: true,
+          },
+          {
+            in: 'query',
+            name: 'before',
+            schema: {
+              type: 'integer',
+              example: 1615299310,
+            },
+          },
+          {
+            in: 'query',
+            name: 'limit',
+            schema: { type: 'integer', example: 50 },
+          },
+        ],
         responses: {
           200: {
             content: {
@@ -55,10 +80,25 @@ module.exports = Router = {
                   items: {
                     type: 'object',
                     properties: {
-                      id: { type: 'string' },
-                      content: { type: 'string' },
-                      user_id: { type: 'string' },
-                      timestamp: { type: 'integer' },
+                      id: {
+                        type: 'string',
+                        format: 'uuid',
+                        example: '507f1f77bcf86cd799439011',
+                      },
+                      content: {
+                        type: 'string',
+                        example: 'My amazing message!',
+                      },
+                      user_id: {
+                        type: 'string',
+                        format: 'uuid',
+                        example: '507f1f77bcf86cd799439011',
+                      },
+                      timestamp: {
+                        type: 'integer',
+                        format: 'int64',
+                        example: 1615297719,
+                      },
                     },
                   },
                 },
