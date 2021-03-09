@@ -72,6 +72,16 @@ module.exports = Router = {
         responses: {
           200: {
             $ref: '#/components/responses/GetMessagesResponse'
+          },
+          500: {
+            content: {
+              'text/html': {
+                schema: {
+                  description: 'The stack trace of the error',
+                  type: 'string'
+                }
+              }
+            }
           }
         }
       }),
