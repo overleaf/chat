@@ -46,52 +46,77 @@ module.exports = Router = {
     app.get(
       '/project/:project_id/messages',
       openapi.path({
+        description: 'Retrieve project messages (global)',
+        tags: ['messages'],
         parameters: [
           {
             in: 'path',
             name: 'project_id',
             schema: { $ref: '#/components/schemas/ObjectId' },
-            required: true,
+            required: true
           },
           {
             in: 'query',
             name: 'before',
-            schema: { $ref: '#/components/schemas/UnixTimestamp' },
+            schema: { $ref: '#/components/schemas/UnixTimestamp' }
           },
           {
             in: 'query',
             name: 'limit',
             schema: {
               type: 'integer',
-              default: 50,
-            },
-          },
+              default: 50
+            }
+          }
         ],
         responses: {
           200: {
-            content: {
-              'application/json': {
-                schema: {
-                  type: 'array',
-                  items: {
-                    type: 'object',
-                    properties: {
-                      id: { $ref: '#/components/schemas/ObjectId' },
-                      content: { $ref: '#/components/schemas/MessageContent' },
-                      user_id: { $ref: '#/components/schemas/ObjectId' },
-                      timestamp: { $ref: '#/components/schemas/UnixTimestamp' },
-                    },
-                  },
-                },
-              },
-            },
-          },
-        },
+            $ref: '#/components/responses/GetMessagesResponse'
+          }
+        }
       }),
       MessageHttpController.getGlobalMessages
     )
     app.post(
       '/project/:project_id/messages',
+      openapi.path({
+        description: 'Send a project message (global)',
+        tags: ['messages'],
+        parameters: [
+          {
+            in: 'path',
+            name: 'project_id',
+            schema: { $ref: '#/components/schemas/ObjectId' },
+            required: true
+          },
+          {
+            in: 'body',
+            name: 'user_id',
+            schema: { $ref: '#/components/schemas/ObjectId' }
+          },
+          {
+            in: 'body',
+            name: 'content',
+            schema: { $ref: '#/components/schemas/MessageContent' }
+          }
+        ],
+        responses: {
+          201: {
+            $ref: '#/components/responses/SendMessageResponse'
+          },
+          400: {
+            description: 'Content too long',
+            content: {
+              'text/plain': {
+                schema: {
+                  type: 'string',
+                  example: 'Content too long (> 10240 bytes)'
+                }
+              }
+            }
+          }
+        }
+      }),
       MessageHttpController.sendGlobalMessage
     )
 
@@ -99,7 +124,27 @@ module.exports = Router = {
       '/project/:project_id/thread/:thread_id/messages',
       MessageHttpController.sendThreadMessage
     )
-    app.get('/project/:project_id/threads', MessageHttpController.getAllThreads)
+    app.get(
+      '/project/:project_id/threads',
+      openapi.path({
+        description: 'Get all threads',
+        tags: ['threads'],
+        parameters: [
+          {
+            in: 'path',
+            name: 'project_id',
+            schema: { $ref: '#/components/schemas/ObjectId' },
+            required: true
+          }
+        ],
+        responses: {
+          200: {
+            $ref: '#/components/responses/GetAllThreadsResponse'
+          }
+        }
+      }),
+      MessageHttpController.getAllThreads
+    )
 
     app.post(
       '/project/:project_id/thread/:thread_id/messages/:message_id/edit',
@@ -124,5 +169,5 @@ module.exports = Router = {
     )
 
     return app.get('/status', (req, res, next) => res.send('chat is alive'))
-  },
+  }
 }
