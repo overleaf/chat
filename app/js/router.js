@@ -13,6 +13,7 @@
 let Router
 const MessageHttpController = require('./Features/Messages/MessageHttpController')
 const { ObjectId } = require('./mongodb')
+const openapi = require('./openapi')
 
 module.exports = Router = {
   route(app) {
@@ -44,6 +45,28 @@ module.exports = Router = {
 
     app.get(
       '/project/:project_id/messages',
+      openapi.path({
+        responses: {
+          200: {
+            content: {
+              'application/json': {
+                schema: {
+                  type: 'array',
+                  items: {
+                    type: 'object',
+                    properties: {
+                      id: { type: 'string' },
+                      content: { type: 'string' },
+                      user_id: { type: 'string' },
+                      timestamp: { type: 'integer' },
+                    },
+                  },
+                },
+              },
+            },
+          },
+        },
+      }),
       MessageHttpController.getGlobalMessages
     )
     app.post(
@@ -80,5 +103,5 @@ module.exports = Router = {
     )
 
     return app.get('/status', (req, res, next) => res.send('chat is alive'))
-  }
+  },
 }
