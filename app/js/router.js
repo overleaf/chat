@@ -86,6 +86,16 @@ module.exports = Router = {
               },
             },
           },
+          500: {
+            content: {
+              'text/html': {
+                schema: {
+                  description: 'The stack trace of the error',
+                  type: 'string',
+                },
+              },
+            },
+          },
         },
       }),
       MessageHttpController.getGlobalMessages
