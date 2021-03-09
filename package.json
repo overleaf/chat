@@ -19,6 +19,7 @@
   },
   "dependencies": {
     "@overleaf/metrics": "^3.4.1",
+    "@wesleytodd/openapi": "^0.1.0",
     "async": "3.2.0",
     "body-parser": "^1.19.0",
     "errorhandler": "^1.5.1",
