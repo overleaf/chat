@@ -16,17 +16,24 @@ const Path = require('path')
 const express = require('express')
 const bodyParser = require('body-parser')
 const errorHandler = require('errorhandler')
+
 const app = express()
 const server = require('http').createServer(app)
 const Router = require('./router')
+const openapi = require('./openapi')
 
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: true }))
 app.use(metrics.http.monitor(logger))
 metrics.injectMetricsRoute(app)
 
+app.use(openapi)
+
 if (app.get('env') === 'development') {
   app.use(errorHandler({ dumpExceptions: true, showStack: true }))
+
+  // Enable SwaggerUI
+  app.use('/swaggerui', openapi.swaggerui)
 }
 
 if (app.get('env') === 'production') {
@@ -37,5 +44,5 @@ Router.route(app)
 
 module.exports = {
   server,
-  app
+  app,
 }
