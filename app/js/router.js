@@ -50,25 +50,21 @@ module.exports = Router = {
           {
             in: 'path',
             name: 'project_id',
-            schema: {
-              type: 'string',
-              format: 'uuid',
-              example: '507f1f77bcf86cd799439011',
-            },
+            schema: { $ref: '#/components/schemas/ObjectId' },
             required: true,
           },
           {
             in: 'query',
             name: 'before',
-            schema: {
-              type: 'integer',
-              example: 1615299310,
-            },
+            schema: { $ref: '#/components/schemas/UnixTimestamp' },
           },
           {
             in: 'query',
             name: 'limit',
-            schema: { type: 'integer', example: 50 },
+            schema: {
+              type: 'integer',
+              default: 50,
+            },
           },
         ],
         responses: {
@@ -80,25 +76,10 @@ module.exports = Router = {
                   items: {
                     type: 'object',
                     properties: {
-                      id: {
-                        type: 'string',
-                        format: 'uuid',
-                        example: '507f1f77bcf86cd799439011',
-                      },
-                      content: {
-                        type: 'string',
-                        example: 'My amazing message!',
-                      },
-                      user_id: {
-                        type: 'string',
-                        format: 'uuid',
-                        example: '507f1f77bcf86cd799439011',
-                      },
-                      timestamp: {
-                        type: 'integer',
-                        format: 'int64',
-                        example: 1615297719,
-                      },
+                      id: { $ref: '#/components/schemas/ObjectId' },
+                      content: { $ref: '#/components/schemas/MessageContent' },
+                      user_id: { $ref: '#/components/schemas/ObjectId' },
+                      timestamp: { $ref: '#/components/schemas/UnixTimestamp' },
                     },
                   },
                 },

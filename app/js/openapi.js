@@ -1,6 +1,6 @@
 const openapi = require('@wesleytodd/openapi')
 
-module.exports = openapi({
+const oapi = openapi({
   openapi: '3.0.0',
   info: {
     title: 'Chat',
@@ -13,3 +13,21 @@ module.exports = openapi({
   //   },
   // ],
 })
+
+oapi.schema('ObjectId', {
+  type: 'string',
+  format: 'uuid',
+  example: '507f1f77bcf86cd799439011',
+})
+
+oapi.schema('UnixTimestamp', {
+  type: 'integer',
+  example: 1615299310,
+})
+
+oapi.schema('MessageContent', {
+  type: 'string',
+  example: 'My amazing message!',
+})
+
+module.exports = oapi
