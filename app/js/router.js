@@ -89,7 +89,7 @@ module.exports = Router = {
     )
     app.post(
       '/project/:project_id/messages',
-      openapi.path({
+      openapi.validPath({
         description: 'Send a project message (global)',
         tags: ['messages'],
         parameters: [
@@ -162,6 +162,43 @@ module.exports = Router = {
     )
     app.delete(
       '/project/:project_id/thread/:thread_id/messages/:message_id',
+      openapi.path({
+        description: 'Delete a message in a thread',
+        tags: ['threads'],
+        parameters: [
+          {
+            in: 'path',
+            name: 'project_id',
+            schema: { $ref: '#/components/schemas/ObjectId' },
+            required: true
+          },
+          {
+            in: 'path',
+            name: 'thread_id',
+            schema: { $ref: '#/components/schemas/ObjectId' },
+            required: true
+          },
+          {
+            in: 'path',
+            name: 'message_id',
+            schema: { $ref: '#/components/schemas/ObjectId' },
+            required: true
+          }
+        ],
+        responses: {
+          204: {
+            description: 'OK',
+            content: {
+              'text/plain': {
+                schema: {
+                  type: 'string',
+                  example: 'OK'
+                }
+              }
+            }
+          }
+        }
+      }),
       MessageHttpController.deleteMessage
     )
 
