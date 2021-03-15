@@ -34,6 +34,7 @@ if (app.get('env') === 'development') {
 
   // Enable SwaggerUI
   app.use('/swaggerui', openapi.swaggerui)
+  app.use('/redoc', openapi.redoc)
 }
 
 if (app.get('env') === 'production') {

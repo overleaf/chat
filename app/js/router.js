@@ -45,7 +45,7 @@ module.exports = Router = {
 
     app.get(
       '/project/:project_id/messages',
-      openapi.path({
+      openapi.validPath({
         description: 'Retrieve project messages (global)',
         tags: ['messages'],
         parameters: [
@@ -98,18 +98,23 @@ module.exports = Router = {
             name: 'project_id',
             schema: { $ref: '#/components/schemas/ObjectId' },
             required: true
-          },
-          {
-            in: 'body',
-            name: 'user_id',
-            schema: { $ref: '#/components/schemas/ObjectId' }
-          },
-          {
-            in: 'body',
-            name: 'content',
-            schema: { $ref: '#/components/schemas/MessageContent' }
           }
         ],
+        requestBody: {
+          description: 'Message',
+          required: true,
+          content: {
+            'application/json': {
+              schema: {
+                type: 'object',
+                properties: {
+                  user_id: { type: 'string' },
+                  content: { $ref: '#/components/schemas/MessageContent' }
+                }
+              }
+            }
+          }
+        },
         responses: {
           201: {
             $ref: '#/components/responses/SendMessageResponse'
