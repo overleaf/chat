@@ -13,6 +13,7 @@
 let Router
 const MessageHttpController = require('./Features/Messages/MessageHttpController')
 const { ObjectId } = require('./mongodb')
+const logger = require('logger-sharelatex')
 
 module.exports = Router = {
   route(app) {
@@ -79,6 +80,33 @@ module.exports = Router = {
       MessageHttpController.deleteThread
     )
 
-    return app.get('/status', (req, res, next) => res.send('chat is alive'))
+    app.get('/status', (req, res, next) => res.send('chat is alive'))
+
+    app.get('/log/debug', (req, res, next) => {
+      logger.debug(
+        { details: { a: 1, b: 2 } },
+        'Keeping you informed of uninteresting details'
+      )
+      res.json({ activity: 'debugging' })
+    })
+
+    app.get('/log/info', (req, res, next) => {
+      logger.info(
+        { details: { a: 1, b: 2 } },
+        'Something you might be interested in just happened'
+      )
+      res.json({ success: true })
+    })
+
+    app.get('/log/warning', (req, res, next) => {
+      logger.warn({ details: { a: 1, b: 2 } }, "This doesn't look too good")
+      res.json({ alert: true })
+    })
+
+    app.get('/log/error', (req, res, next) => {
+      const err = new Error('Something broke badly')
+      logger.err(err, 'Houston, we have a problem')
+      res.status(500).json({ status: 'meltdown' })
+    })
   }
 }
